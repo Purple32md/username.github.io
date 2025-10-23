@@ -28,6 +28,43 @@
             --radius: 12px;
         }
 
+        /* Темная тема */
+        .dark-theme {
+            --text: #ffffff;
+            --text-light: #cccccc;
+            --background: #1a1a1a;
+            --surface: #2d2d2d;
+            --border: #404040;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .dark-theme .navbar {
+            background: rgba(45, 45, 45, 0.95);
+        }
+
+        .dark-theme .species-card,
+        .dark-theme .visual-card,
+        .dark-theme .gallery-item,
+        .dark-theme .advice-card {
+            background: var(--surface);
+            color: var(--text);
+        }
+
+        .dark-theme .hero {
+            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+        }
+
+        .dark-theme .species-section,
+        .dark-theme .gallery-section,
+        .dark-theme .advice-section {
+            background: #2d2d2d;
+        }
+
+        .dark-theme .about-section {
+            background: #1a1a1a;
+        }
+
         html {
             scroll-behavior: smooth;
         }
@@ -38,6 +75,7 @@
             color: var(--text);
             background: var(--background);
             overflow-x: hidden;
+            transition: all 0.3s ease;
         }
 
         /* Навигация */
@@ -225,13 +263,13 @@
             display: block;
             font-size: 2rem;
             font-weight: 400;
-            color: var(--text-light);
+            color: var(--text);
             animation: slideInRight 1s ease-out 0.3s both;
         }
 
         .hero-description {
             font-size: 1.3rem;
-            color: var(--text-light);
+            color: var(--text);
             margin-bottom: 2.5rem;
             line-height: 1.8;
             animation: fadeIn 1s ease-out 0.6s both;
@@ -300,7 +338,7 @@
         }
 
         .stat-label {
-            color: var(--text-light);
+            color: var(--text);
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -325,7 +363,7 @@
 
         .section-header p {
             font-size: 1.2rem;
-            color: var(--text-light);
+            color: var(--text);
             max-width: 600px;
             margin: 0 auto;
             animation: fadeInUp 0.8s ease-out 0.2s both;
@@ -352,6 +390,7 @@
             border: 1px solid var(--border);
             animation: fadeInUp 0.6s ease-out;
             animation-fill-mode: both;
+            color: var(--text);
         }
 
         .species-card:hover {
@@ -377,7 +416,7 @@
         }
 
         .species-card p {
-            color: var(--text-light);
+            color: var(--text);
             margin-bottom: 1.5rem;
             line-height: 1.6;
         }
@@ -441,7 +480,7 @@
         .about-content p {
             font-size: 1.1rem;
             line-height: 1.8;
-            color: var(--text-light);
+            color: var(--text);
             margin-bottom: 1.5rem;
             animation: fadeInLeft 0.8s ease-out 0.2s both;
         }
@@ -460,6 +499,7 @@
             gap: 1rem;
             font-weight: 500;
             padding: 0.5rem 0;
+            color: var(--text);
         }
 
         .feature-icon {
@@ -487,6 +527,7 @@
             box-shadow: var(--shadow);
             text-align: center;
             border: 2px solid var(--primary-light);
+            color: var(--text);
         }
 
         .visual-icon {
@@ -498,6 +539,78 @@
         .visual-card h4 {
             color: var(--primary-dark);
             margin-bottom: 0.5rem;
+        }
+
+        /* Советы */
+        .advice-section {
+            background: var(--surface);
+        }
+
+        .advice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .advice-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary);
+            color: var(--text);
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .advice-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .advice-card:nth-child(1) { animation-delay: 0.1s; }
+        .advice-card:nth-child(2) { animation-delay: 0.2s; }
+        .advice-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .advice-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .advice-card h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .advice-card p {
+            color: var(--text);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .advice-tips {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .advice-tips li {
+            padding: 0.5rem 0;
+            color: var(--text);
+            border-bottom: 1px solid var(--border);
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .advice-tips li:before {
+            content: '✅';
+            position: absolute;
+            left: 0;
+        }
+
+        .advice-tips li:last-child {
+            border-bottom: none;
         }
 
         /* Галерея */
@@ -519,6 +632,7 @@
             transition: all 0.3s ease;
             animation: fadeInUp 0.6s ease-out;
             animation-fill-mode: both;
+            color: var(--text);
         }
 
         .gallery-item:hover {
@@ -540,6 +654,10 @@
             font-size: 4rem;
         }
 
+        .dark-theme .gallery-image {
+            background: linear-gradient(135deg, #2d2d2d, #404040);
+        }
+
         .gallery-info {
             padding: 1.5rem;
         }
@@ -550,7 +668,7 @@
         }
 
         .gallery-info p {
-            color: var(--text-light);
+            color: var(--text);
             font-size: 0.9rem;
         }
 
@@ -713,7 +831,7 @@
                 top: 70px;
                 left: -100%;
                 width: 100%;
-                background: white;
+                background: var(--background);
                 flex-direction: column;
                 gap: 0;
                 box-shadow: var(--shadow-lg);
@@ -763,7 +881,7 @@
                 font-size: 2rem;
             }
 
-            .species-grid {
+            .species-grid, .advice-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -812,7 +930,7 @@
                 font-size: 1.8rem;
             }
 
-            .species-card, .gallery-item {
+            .species-card, .gallery-item, .advice-card {
                 padding: 1.5rem;
             }
 
@@ -848,25 +966,6 @@
             }
         }
 
-        /* Поддержка темной темы */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --text: #ffffff;
-                --text-light: #cccccc;
-                --background: #1a1a1a;
-                --surface: #2d2d2d;
-                --border: #404040;
-            }
-
-            .navbar {
-                background: rgba(45, 45, 45, 0.95);
-            }
-
-            .species-card, .visual-card, .gallery-item {
-                background: var(--surface);
-            }
-        }
-
         /* Улучшенная доступность */
         @media (prefers-reduced-motion: reduce) {
             * {
@@ -888,6 +987,7 @@
             <div class="nav-menu" id="navMenu">
                 <a href="#home" class="nav-link active">Главная</a>
                 <a href="#species" class="nav-link">Виды</a>
+                <a href="#advice" class="nav-link">Советы</a>
                 <a href="#about" class="nav-link">О проекте</a>
                 <a href="#gallery" class="nav-link">Галерея</a>
             </div>
@@ -917,7 +1017,7 @@
                 </p>
                 <div class="hero-actions">
                     <a href="#species" class="btn-primary">Исследовать виды</a>
-                    <a href="#about" class="btn-secondary">Узнать больше</a>
+                    <a href="#advice" class="btn-secondary">Полезные советы</a>
                 </div>
                 <div class="hero-stats">
                     <div class="stat">
@@ -995,6 +1095,53 @@
                         <li>Трещотка ширококрылая</li>
                     </ul>
                     <button class="card-btn" onclick="showAlert('Прямокрылые')">Подробнее</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция советов -->
+    <section id="advice" class="advice-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Полезные советы</h2>
+                <p>Рекомендации по наблюдению и сохранению насекомых</p>
+            </div>
+            <div class="advice-grid">
+                <div class="advice-card">
+                    <div class="advice-icon">🔍</div>
+                    <h3>Наблюдение за насекомыми</h3>
+                    <p>Как правильно наблюдать за насекомыми в естественной среде обитания</p>
+                    <ul class="advice-tips">
+                        <li>Выбирайте утренние часы для наблюдений</li>
+                        <li>Используйте бинокль для бабочек</li>
+                        <li>Не трогайте насекомых руками</li>
+                        <li>Фотографируйте, а не ловите</li>
+                    </ul>
+                </div>
+
+                <div class="advice-card">
+                    <div class="advice-icon">🏡</div>
+                    <h3>Создание сада для насекомых</h3>
+                    <p>Как привлечь полезных насекомых в свой сад</p>
+                    <ul class="advice-tips">
+                        <li>Сажайте местные виды растений</li>
+                        <li>Создайте "дикий" уголок в саду</li>
+                        <li>Установите домик для насекомых</li>
+                        <li>Не используйте пестициды</li>
+                    </ul>
+                </div>
+
+                <div class="advice-card">
+                    <div class="advice-icon">🛡️</div>
+                    <h3>Сохранение редких видов</h3>
+                    <p>Как помочь сохранить биоразнообразие насекомых</p>
+                    <ul class="advice-tips">
+                        <li>Сообщайте о редких находках</li>
+                        <li>Участвуйте в научных проектах</li>
+                        <li>Поддерживайте охраняемые территории</li>
+                        <li>Распространяйте знания о насекомых</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -1097,6 +1244,7 @@
                     <ul>
                         <li><a href="#home">Главная</a></li>
                         <li><a href="#species">Виды</a></li>
+                        <li><a href="#advice">Советы</a></li>
                         <li><a href="#about">О проекте</a></li>
                         <li><a href="#gallery">Галерея</a></li>
                     </ul>
@@ -1190,6 +1338,15 @@
             } else {
                 navbar.style.background = 'rgba(255, 255, 255, 0.95)';
                 navbar.style.backdropFilter = 'blur(10px)';
+            }
+
+            // Для темной темы
+            if (document.body.classList.contains('dark-theme')) {
+                if (window.scrollY > 100) {
+                    navbar.style.background = 'rgba(45, 45, 45, 0.98)';
+                } else {
+                    navbar.style.background = 'rgba(45, 45, 45, 0.95)';
+                }
             }
         });
 
