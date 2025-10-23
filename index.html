@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Насекомые Ярославской области | Энтомология</title>
     <style>
-        /* Базовые стили */
+        /* Базовые стили и сброс */
         * {
             margin: 0;
             padding: 0;
@@ -17,6 +17,7 @@
             --primary-dark: #1b5e20;
             --primary-light: #4caf50;
             --secondary: #ff9800;
+            --accent: #ff5722;
             --text: #333333;
             --text-light: #666666;
             --background: #ffffff;
@@ -24,6 +25,7 @@
             --border: #e0e0e0;
             --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+            --radius: 12px;
         }
 
         html {
@@ -31,64 +33,11 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: var(--text);
             background: var(--background);
             overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Анимации */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes float {
-            0%, 100% { 
-                transform: translateY(0) rotate(0deg); 
-            }
-            50% { 
-                transform: translateY(-20px) rotate(5deg); 
-            }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-        }
-
-        @keyframes typewriter {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        @keyframes shimmer {
-            0% { background-position: -1000px 0; }
-            100% { background-position: 1000px 0; }
         }
 
         /* Навигация */
@@ -100,16 +49,16 @@
             top: 0;
             z-index: 1000;
             box-shadow: var(--shadow);
-            animation: slideUp 0.8s ease-out;
+            transition: all 0.3s ease;
         }
 
         .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 1rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
         }
 
         .nav-logo {
@@ -119,7 +68,7 @@
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--primary);
-            animation: pulse 2s infinite;
+            text-decoration: none;
         }
 
         .logo-icon {
@@ -169,6 +118,36 @@
             width: 100%;
         }
 
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .theme-btn, .menu-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-btn:hover, .menu-btn:hover {
+            background: var(--surface);
+            transform: scale(1.1);
+        }
+
+        .menu-btn {
+            display: none;
+        }
+
         /* Герой секция */
         .hero {
             min-height: 100vh;
@@ -214,13 +193,19 @@
             animation-delay: 4s;
         }
 
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
         .hero-content {
             text-align: center;
             max-width: 800px;
             margin: 0 auto;
             position: relative;
             z-index: 2;
-            animation: slideUp 1s ease-out 0.5s both;
+            animation: fadeInUp 1s ease-out;
         }
 
         .hero-title {
@@ -233,9 +218,7 @@
             font-weight: 700;
             color: var(--primary-dark);
             margin-bottom: 0.5rem;
-            overflow: hidden;
-            white-space: nowrap;
-            animation: typewriter 2s steps(40) 1s both;
+            animation: slideInLeft 1s ease-out;
         }
 
         .title-sub {
@@ -243,7 +226,7 @@
             font-size: 2rem;
             font-weight: 400;
             color: var(--text-light);
-            animation: fadeIn 1s ease-out 2s both;
+            animation: slideInRight 1s ease-out 0.3s both;
         }
 
         .hero-description {
@@ -251,7 +234,7 @@
             color: var(--text-light);
             margin-bottom: 2.5rem;
             line-height: 1.8;
-            animation: fadeIn 1s ease-out 2.5s both;
+            animation: fadeIn 1s ease-out 0.6s both;
         }
 
         .hero-actions {
@@ -259,7 +242,7 @@
             gap: 1rem;
             justify-content: center;
             margin-bottom: 3rem;
-            animation: fadeIn 1s ease-out 3s both;
+            animation: fadeIn 1s ease-out 0.9s both;
         }
 
         .btn-primary, .btn-secondary {
@@ -270,19 +253,20 @@
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 600;
-            animation: pulse 2s infinite 3.5s;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .btn-primary {
             background: var(--primary);
             color: white;
+            box-shadow: var(--shadow);
         }
 
         .btn-primary:hover {
             background: var(--primary-dark);
             transform: translateY(-2px);
             box-shadow: var(--shadow-lg);
-            animation: none;
         }
 
         .btn-secondary {
@@ -295,14 +279,13 @@
             background: var(--primary);
             color: white;
             transform: translateY(-2px);
-            animation: none;
         }
 
         .hero-stats {
             display: flex;
             justify-content: center;
             gap: 3rem;
-            animation: slideUp 1s ease-out 3.5s both;
+            animation: fadeIn 1s ease-out 1.2s both;
         }
 
         .stat {
@@ -319,31 +302,25 @@
         .stat-label {
             color: var(--text-light);
             font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         /* Секции */
         section {
             padding: 100px 0;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         .section-header {
             text-align: center;
             margin-bottom: 4rem;
-            animation: slideUp 0.8s ease-out;
         }
 
         .section-header h2 {
             font-size: 3rem;
             color: var(--primary-dark);
             margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease-out;
         }
 
         .section-header p {
@@ -351,26 +328,30 @@
             color: var(--text-light);
             max-width: 600px;
             margin: 0 auto;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
         }
 
         /* Сетка видов */
+        .species-section {
+            background: var(--surface);
+        }
+
         .species-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
 
         .species-card {
             background: white;
             padding: 2.5rem;
-            border-radius: 20px;
+            border-radius: var(--radius);
             box-shadow: var(--shadow);
             transition: all 0.3s ease;
             text-align: center;
             border: 1px solid var(--border);
-            opacity: 0;
-            transform: translateY(30px);
-            animation: slideUp 0.6s ease-out forwards;
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
         }
 
         .species-card:hover {
@@ -411,14 +392,15 @@
             padding: 0.5rem 0;
             color: var(--text);
             border-bottom: 1px solid var(--border);
-            animation: slideUp 0.5s ease-out forwards;
-            opacity: 0;
+            position: relative;
+            padding-left: 1.5rem;
         }
 
-        .species-list li:nth-child(1) { animation-delay: 0.5s; }
-        .species-list li:nth-child(2) { animation-delay: 0.6s; }
-        .species-list li:nth-child(3) { animation-delay: 0.7s; }
-        .species-list li:nth-child(4) { animation-delay: 0.8s; }
+        .species-list li:before {
+            content: '🦋';
+            position: absolute;
+            left: 0;
+        }
 
         .species-list li:last-child {
             border-bottom: none;
@@ -433,6 +415,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 600;
+            width: 100%;
         }
 
         .card-btn:hover {
@@ -441,10 +424,6 @@
         }
 
         /* О проекте */
-        .about-section {
-            background: var(--surface);
-        }
-
         .about-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
@@ -456,7 +435,7 @@
             font-size: 2.5rem;
             color: var(--primary-dark);
             margin-bottom: 1.5rem;
-            animation: slideUp 0.8s ease-out;
+            animation: fadeInLeft 0.8s ease-out;
         }
 
         .about-content p {
@@ -464,7 +443,7 @@
             line-height: 1.8;
             color: var(--text-light);
             margin-bottom: 1.5rem;
-            animation: slideUp 0.8s ease-out 0.2s both;
+            animation: fadeInLeft 0.8s ease-out 0.2s both;
         }
 
         .about-features {
@@ -472,6 +451,7 @@
             flex-direction: column;
             gap: 1rem;
             margin-top: 2rem;
+            animation: fadeInLeft 0.8s ease-out 0.4s both;
         }
 
         .feature {
@@ -479,37 +459,40 @@
             align-items: center;
             gap: 1rem;
             font-weight: 500;
-            animation: slideUp 0.8s ease-out forwards;
-            opacity: 0;
+            padding: 0.5rem 0;
         }
-
-        .feature:nth-child(1) { animation-delay: 0.4s; }
-        .feature:nth-child(2) { animation-delay: 0.5s; }
-        .feature:nth-child(3) { animation-delay: 0.6s; }
 
         .feature-icon {
             font-size: 1.5rem;
-            animation: pulse 2s infinite;
+            background: var(--primary-light);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .about-visual {
             display: flex;
             justify-content: center;
-            animation: slideUp 0.8s ease-out 0.3s both;
+            animation: fadeInRight 0.8s ease-out 0.6s both;
         }
 
         .visual-card {
             background: white;
             padding: 2rem;
-            border-radius: 15px;
+            border-radius: var(--radius);
             box-shadow: var(--shadow);
             text-align: center;
-            animation: float 4s ease-in-out infinite;
+            border: 2px solid var(--primary-light);
         }
 
         .visual-icon {
             font-size: 3rem;
             margin-bottom: 1rem;
+            animation: pulse 2s infinite;
         }
 
         .visual-card h4 {
@@ -518,6 +501,10 @@
         }
 
         /* Галерея */
+        .gallery-section {
+            background: var(--surface);
+        }
+
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -526,24 +513,23 @@
 
         .gallery-item {
             background: white;
-            border-radius: 15px;
+            border-radius: var(--radius);
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: all 0.3s ease;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: slideUp 0.6s ease-out forwards;
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: var(--shadow-lg);
         }
 
         .gallery-item:nth-child(1) { animation-delay: 0.1s; }
         .gallery-item:nth-child(2) { animation-delay: 0.2s; }
         .gallery-item:nth-child(3) { animation-delay: 0.3s; }
         .gallery-item:nth-child(4) { animation-delay: 0.4s; }
-
-        .gallery-item:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: var(--shadow-lg);
-        }
 
         .gallery-image {
             height: 200px;
@@ -552,7 +538,6 @@
             align-items: center;
             justify-content: center;
             font-size: 4rem;
-            animation: pulse 3s infinite;
         }
 
         .gallery-info {
@@ -574,7 +559,6 @@
             background: var(--primary-dark);
             color: white;
             padding: 3rem 0 1rem;
-            animation: slideUp 0.8s ease-out;
         }
 
         .footer-content {
@@ -596,6 +580,7 @@
         .footer-section h4 {
             margin-bottom: 1rem;
             font-size: 1.2rem;
+            color: white;
         }
 
         .footer-section ul {
@@ -604,13 +589,7 @@
 
         .footer-section li {
             margin-bottom: 0.5rem;
-            animation: slideUp 0.5s ease-out forwards;
-            opacity: 0;
         }
-
-        .footer-section li:nth-child(1) { animation-delay: 0.1s; }
-        .footer-section li:nth-child(2) { animation-delay: 0.2s; }
-        .footer-section li:nth-child(3) { animation-delay: 0.3s; }
 
         .footer-section a {
             color: #ccc;
@@ -629,76 +608,272 @@
             color: #ccc;
         }
 
-        /* Адаптивность */
-        @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
             }
-            
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Адаптивность для мобильных устройств */
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                gap: 0;
+                box-shadow: var(--shadow-lg);
+                transition: left 0.3s ease;
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-link {
+                padding: 1rem 2rem;
+                border-bottom: 1px solid var(--border);
+                width: 100%;
+                display: block;
+            }
+
+            .nav-link:last-child {
+                border-bottom: none;
+            }
+
             .title-main {
                 font-size: 2.5rem;
             }
-            
+
             .title-sub {
                 font-size: 1.5rem;
             }
-            
+
             .hero-actions {
                 flex-direction: column;
                 align-items: center;
             }
-            
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 300px;
+            }
+
             .hero-stats {
                 flex-direction: column;
                 gap: 1.5rem;
             }
-            
-            .about-grid {
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .species-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .footer-content {
+
+            .about-grid {
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
-            
-            .species-grid {
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
                 grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            .nav-container {
+                padding: 1rem;
             }
         }
 
         @media (max-width: 480px) {
-            .container {
-                padding: 0 15px;
-            }
-            
-            .nav-container {
-                padding: 1rem 15px;
-            }
-            
             .title-main {
                 font-size: 2rem;
             }
-            
-            section {
-                padding: 60px 0;
+
+            .title-sub {
+                font-size: 1.2rem;
             }
-            
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
             .section-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .species-card, .gallery-item {
+                padding: 1.5rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .floating-insect {
+                font-size: 2rem;
+            }
+
+            .stat-number {
                 font-size: 2rem;
             }
         }
 
-        /* Дополнительные анимации */
-        .shimmer {
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            background-size: 1000px 100%;
-            animation: shimmer 2s infinite;
+        /* Улучшения для очень маленьких экранов */
+        @media (max-width: 360px) {
+            .nav-logo {
+                font-size: 1.2rem;
+            }
+
+            .title-main {
+                font-size: 1.8rem;
+            }
+
+            .hero-stats {
+                gap: 1rem;
+            }
+
+            .stat-number {
+                font-size: 1.8rem;
+            }
         }
 
-        .loading {
-            opacity: 0;
-            animation: fadeIn 0.5s ease-out forwards;
+        /* Поддержка темной темы */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text: #ffffff;
+                --text-light: #cccccc;
+                --background: #1a1a1a;
+                --surface: #2d2d2d;
+                --border: #404040;
+            }
+
+            .navbar {
+                background: rgba(45, 45, 45, 0.95);
+            }
+
+            .species-card, .visual-card, .gallery-item {
+                background: var(--surface);
+            }
+        }
+
+        /* Улучшенная доступность */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
@@ -706,16 +881,20 @@
     <!-- Навигация -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-logo">
+            <a href="#home" class="nav-logo">
                 <span class="logo-icon">🦋</span>
                 Энтомология ЯО
+            </a>
+            <div class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link active">Главная</a>
+                <a href="#species" class="nav-link">Виды</a>
+                <a href="#about" class="nav-link">О проекте</a>
+                <a href="#gallery" class="nav-link">Галерея</a>
             </div>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link active">Главная</a></li>
-                <li><a href="#species" class="nav-link">Виды</a></li>
-                <li><a href="#about" class="nav-link">О проекте</a></li>
-                <li><a href="#gallery" class="nav-link">Галерея</a></li>
-            </ul>
+            <div class="nav-actions">
+                <button class="theme-btn" onclick="toggleTheme()">🌙</button>
+                <button class="menu-btn" onclick="toggleMenu()">☰</button>
+            </div>
         </div>
     </nav>
 
@@ -737,8 +916,8 @@
                     Изучайте, сохраняйте и восхищайтесь разнообразием насекомых.
                 </p>
                 <div class="hero-actions">
-                    <button class="btn-primary" onclick="scrollToSection('species')">Исследовать виды</button>
-                    <button class="btn-secondary" onclick="showAbout()">Узнать больше</button>
+                    <a href="#species" class="btn-primary">Исследовать виды</a>
+                    <a href="#about" class="btn-secondary">Узнать больше</a>
                 </div>
                 <div class="hero-stats">
                     <div class="stat">
@@ -771,12 +950,12 @@
                     <h3>Чешуекрылые</h3>
                     <p>Бабочки - одни из самых красивых и разнообразных насекомых региона</p>
                     <ul class="species-list">
-                        <li>• Махаон обыкновенный</li>
-                        <li>• Адмирал</li>
-                        <li>• Крапивница</li>
-                        <li>• Ленточник тополевый</li>
+                        <li>Махаон обыкновенный</li>
+                        <li>Адмирал</li>
+                        <li>Крапивница</li>
+                        <li>Ленточник тополевый</li>
                     </ul>
-                    <button class="card-btn" onclick="showInsectInfo('butterfly')">Подробнее</button>
+                    <button class="card-btn" onclick="showAlert('Бабочки')">Подробнее</button>
                 </div>
 
                 <div class="species-card">
@@ -784,12 +963,12 @@
                     <h3>Перепончатокрылые</h3>
                     <p>Пчелы, шмели и осы - важные опылители растений</p>
                     <ul class="species-list">
-                        <li>• Пчела медоносная</li>
-                        <li>• Шмель полевой</li>
-                        <li>• Оса обыкновенная</li>
-                        <li>• Муравей рыжий</li>
+                        <li>Пчела медоносная</li>
+                        <li>Шмель полевой</li>
+                        <li>Оса обыкновенная</li>
+                        <li>Муравей рыжий</li>
                     </ul>
-                    <button class="card-btn" onclick="showInsectInfo('bee')">Подробнее</button>
+                    <button class="card-btn" onclick="showAlert('Пчелы и шмели')">Подробнее</button>
                 </div>
 
                 <div class="species-card">
@@ -797,12 +976,12 @@
                     <h3>Жесткокрылые</h3>
                     <p>Жуки - самая многочисленная группа насекомых</p>
                     <ul class="species-list">
-                        <li>• Божья коровка</li>
-                        <li>• Жук-олень</li>
-                        <li>• Жук-плавунец</li>
-                        <li>• Жук-носорог</li>
+                        <li>Божья коровка</li>
+                        <li>Жук-олень</li>
+                        <li>Жук-плавунец</li>
+                        <li>Жук-носорог</li>
                     </ul>
-                    <button class="card-btn" onclick="showInsectInfo('beetle')">Подробнее</button>
+                    <button class="card-btn" onclick="showAlert('Жуки')">Подробнее</button>
                 </div>
 
                 <div class="species-card">
@@ -810,12 +989,12 @@
                     <h3>Прямокрылые</h3>
                     <p>Кузнечики, сверчки и саранчовые</p>
                     <ul class="species-list">
-                        <li>• Кузнечик зеленый</li>
-                        <li>• Сверчок полевой</li>
-                        <li>• Кобылка степная</li>
-                        <li>• Трещотка ширококрылая</li>
+                        <li>Кузнечик зеленый</li>
+                        <li>Сверчок полевой</li>
+                        <li>Кобылка степная</li>
+                        <li>Трещотка ширококрылая</li>
                     </ul>
-                    <button class="card-btn" onclick="showInsectInfo('grasshopper')">Подробнее</button>
+                    <button class="card-btn" onclick="showAlert('Прямокрылые')">Подробнее</button>
                 </div>
             </div>
         </div>
@@ -916,10 +1095,10 @@
                 <div class="footer-section">
                     <h4>Навигация</h4>
                     <ul>
-                        <li><a href="#home" onclick="scrollToSection('home')">Главная</a></li>
-                        <li><a href="#species" onclick="scrollToSection('species')">Виды</a></li>
-                        <li><a href="#about" onclick="scrollToSection('about')">О проекте</a></li>
-                        <li><a href="#gallery" onclick="scrollToSection('gallery')">Галерея</a></li>
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#species">Виды</a></li>
+                        <li><a href="#about">О проекте</a></li>
+                        <li><a href="#gallery">Галерея</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -938,19 +1117,123 @@
     </footer>
 
     <script>
-        // Функции для анимаций и взаимодействия
-        function scrollToSection(sectionId) {
-            const element = document.getElementById(sectionId);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
+        // Функция для показа уведомления
+        function showAlert(category) {
+            alert(`Раздел "${category}" находится в разработке. Скоро здесь появится подробная информация!`);
+        }
+
+        // Переключение мобильного меню
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Переключение темы
+        function toggleTheme() {
+            const body = document.body;
+            const themeBtn = document.querySelector('.theme-btn');
+            
+            if (body.classList.contains('dark-theme')) {
+                body.classList.remove('dark-theme');
+                themeBtn.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.add('dark-theme');
+                themeBtn.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
             }
         }
 
-        function showAbout() {
-            scrollToSection('about');
+        // Загрузка сохраненной темы
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const themeBtn = document.querySelector('.theme-btn');
+            
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+                themeBtn.textContent = '☀️';
+            }
         }
 
-        function showInsectInfo(type) {
-            const messages = {
-                butterfly: '🦋 Махаон обыкновенный - редкая бабочка, занесенная в Красную книгу. Размах крыльев до 9 см!',
-                bee: '🐝 Пчела медоносная - важнейший опылитель. Одна пчелиная семья может насчитывать до 60
+        // Плавная прокрутка для навигационных ссылок
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                // Закрываем мобильное меню если оно открыто
+                const navMenu = document.getElementById('navMenu');
+                navMenu.classList.remove('active');
+                
+                // Обновляем активную ссылку
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Прокрутка к секции
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Изменение стиля навигации при скролле
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.backdropFilter = 'blur(20px)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.backdropFilter = 'blur(10px)';
+            }
+        });
+
+        // Обновление активной ссылки при скролле
+        function updateActiveLink() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 100)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveLink);
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTheme();
+            updateActiveLink();
+            
+            // Добавляем класс для анимаций после загрузки
+            setTimeout(() => {
+                document.body.classList.add('loaded');
+            }, 100);
+        });
+
+        // Обработка ошибок изображений
+        document.addEventListener('error', function(e) {
+            if (e.target.tagName === 'IMG') {
+                e.target.style.display = 'none';
+            }
+        }, true);
+    </script>
+</body>
+</html>
