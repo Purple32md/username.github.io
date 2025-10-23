@@ -3,196 +3,954 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Насекомые Ярославской области</title>
+    <title>Насекомые Ярославской области | Энтомология</title>
     <style>
+        /* Базовые стили */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            padding-top: 70px;
+        :root {
+            --primary: #2e7d32;
+            --primary-dark: #1b5e20;
+            --primary-light: #4caf50;
+            --secondary: #ff9800;
+            --text: #333333;
+            --text-light: #666666;
+            --background: #ffffff;
+            --surface: #f8f9fa;
+            --border: #e0e0e0;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--background);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg); 
+            }
+            50% { 
+                transform: translateY(-20px) rotate(5deg); 
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        /* Навигация */
         .navbar {
-            background: #2e7d32;
-            color: white;
-            padding: 1rem 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
+            box-shadow: var(--shadow);
+            animation: slideUp 0.8s ease-out;
         }
 
         .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 2rem;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             font-size: 1.5rem;
-            font-weight: bold;
+            font-weight: 700;
+            color: var(--primary);
+            animation: pulse 2s infinite;
+        }
+
+        .logo-icon {
+            font-size: 1.8rem;
+            animation: bounce 2s infinite;
         }
 
         .nav-menu {
             display: flex;
+            list-style: none;
             gap: 2rem;
         }
 
-        .nav-menu a {
-            color: white;
+        .nav-link {
             text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
         }
 
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Герой секция */
         .hero {
-            background: #e8f5e8;
-            padding: 100px 2rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            overflow: hidden;
+            margin-top: 0;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .floating-insect {
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0.7;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-insect:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-insect:nth-child(2) {
+            top: 60%;
+            left: 85%;
+            animation-delay: 2s;
+        }
+
+        .floating-insect:nth-child(3) {
+            top: 80%;
+            left: 15%;
+            animation-delay: 4s;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            animation: slideUp 1s ease-out 0.5s both;
+        }
+
+        .hero-title {
+            margin-bottom: 1.5rem;
+        }
+
+        .title-main {
+            display: block;
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typewriter 2s steps(40) 1s both;
+        }
+
+        .title-sub {
+            display: block;
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--text-light);
+            animation: fadeIn 1s ease-out 2s both;
+        }
+
+        .hero-description {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+            animation: fadeIn 1s ease-out 2.5s both;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+            animation: fadeIn 1s ease-out 3s both;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            animation: pulse 2s infinite 3.5s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            animation: none;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            animation: none;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            animation: slideUp 1s ease-out 3.5s both;
+        }
+
+        .stat {
             text-align: center;
         }
 
-        .hero h1 {
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Секции */
+        section {
+            padding: 100px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .section-header h2 {
             font-size: 3rem;
-            color: #1b5e20;
+            color: var(--primary-dark);
             margin-bottom: 1rem;
         }
 
-        section {
-            padding: 80px 2rem;
-            max-width: 1200px;
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
             margin: 0 auto;
         }
 
-        h2 {
-            text-align: center;
-            margin-bottom: 3rem;
-            color: #2e7d32;
-        }
-
+        /* Сетка видов */
         .species-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
         }
 
         .species-card {
             background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
             text-align: center;
+            border: 1px solid var(--border);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.6s ease-out forwards;
         }
 
+        .species-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .species-card:nth-child(1) { animation-delay: 0.1s; }
+        .species-card:nth-child(2) { animation-delay: 0.2s; }
+        .species-card:nth-child(3) { animation-delay: 0.3s; }
+        .species-card:nth-child(4) { animation-delay: 0.4s; }
+
         .card-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            animation: bounce 2s infinite;
+        }
+
+        .species-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+
+        .species-card p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .species-list {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+
+        .species-list li {
+            padding: 0.5rem 0;
+            color: var(--text);
+            border-bottom: 1px solid var(--border);
+            animation: slideUp 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .species-list li:nth-child(1) { animation-delay: 0.5s; }
+        .species-list li:nth-child(2) { animation-delay: 0.6s; }
+        .species-list li:nth-child(3) { animation-delay: 0.7s; }
+        .species-list li:nth-child(4) { animation-delay: 0.8s; }
+
+        .species-list li:last-child {
+            border-bottom: none;
+        }
+
+        .card-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .card-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* О проекте */
+        .about-section {
+            background: var(--surface);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            animation: slideUp 0.8s ease-out 0.2s both;
+        }
+
+        .about-features {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 500;
+            animation: slideUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .feature:nth-child(1) { animation-delay: 0.4s; }
+        .feature:nth-child(2) { animation-delay: 0.5s; }
+        .feature:nth-child(3) { animation-delay: 0.6s; }
+
+        .feature-icon {
+            font-size: 1.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        .about-visual {
+            display: flex;
+            justify-content: center;
+            animation: slideUp 0.8s ease-out 0.3s both;
+        }
+
+        .visual-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .visual-icon {
             font-size: 3rem;
             margin-bottom: 1rem;
         }
 
-        footer {
-            background: #1b5e20;
-            color: white;
-            text-align: center;
-            padding: 2rem;
+        .visual-card h4 {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
         }
 
+        /* Галерея */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.6s ease-out forwards;
+        }
+
+        .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.3s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.4s; }
+
+        .gallery-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .gallery-image {
+            height: 200px;
+            background: linear-gradient(135deg, #e8f5e8, #c8e6c9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            animation: pulse 3s infinite;
+        }
+
+        .gallery-info {
+            padding: 1.5rem;
+        }
+
+        .gallery-info h4 {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-info p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Футер */
+        .footer {
+            background: var(--primary-dark);
+            color: white;
+            padding: 3rem 0 1rem;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.5rem;
+            animation: slideUp 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .footer-section li:nth-child(1) { animation-delay: 0.1s; }
+        .footer-section li:nth-child(2) { animation-delay: 0.2s; }
+        .footer-section li:nth-child(3) { animation-delay: 0.3s; }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: #ccc;
+        }
+
+        /* Адаптивность */
         @media (max-width: 768px) {
             .nav-menu {
-                flex-direction: column;
-                gap: 1rem;
+                display: none;
             }
             
-            .hero h1 {
+            .title-main {
+                font-size: 2.5rem;
+            }
+            
+            .title-sub {
+                font-size: 1.5rem;
+            }
+            
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .species-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .nav-container {
+                padding: 1rem 15px;
+            }
+            
+            .title-main {
                 font-size: 2rem;
             }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Дополнительные анимации */
+        .shimmer {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            background-size: 1000px 100%;
+            animation: shimmer 2s infinite;
+        }
+
+        .loading {
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
         }
     </style>
 </head>
 <body>
+    <!-- Навигация -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-logo">🦋 Насекомые ЯО</div>
-            <div class="nav-menu">
-                <a href="#home">Главная</a>
-                <a href="#species">Виды</a>
-                <a href="#about">О проекте</a>
-                <a href="#gallery">Галерея</a>
+            <div class="nav-logo">
+                <span class="logo-icon">🦋</span>
+                Энтомология ЯО
             </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active">Главная</a></li>
+                <li><a href="#species" class="nav-link">Виды</a></li>
+                <li><a href="#about" class="nav-link">О проекте</a></li>
+                <li><a href="#gallery" class="nav-link">Галерея</a></li>
+            </ul>
         </div>
     </nav>
 
+    <!-- Герой секция -->
     <section id="home" class="hero">
-        <h1>Насекомые Ярославской области</h1>
-        <p>Изучаем удивительный мир насекомых нашего региона</p>
-        <button onclick="showMessage()" style="margin-top: 20px; padding: 10px 20px; background: #2e7d32; color: white; border: none; border-radius: 5px; cursor: pointer;">
-            Узнать больше
-        </button>
-    </section>
-
-    <section id="species">
-        <h2>Виды насекомых</h2>
-        <div class="species-grid">
-            <div class="species-card">
-                <div class="card-icon">🦋</div>
-                <h3>Бабочки</h3>
-                <p>Более 100 видов дневных и ночных бабочек</p>
-            </div>
-            <div class="species-card">
-                <div class="card-icon">🐝</div>
-                <h3>Пчелы</h3>
-                <p>Важные опылители растений</p>
-            </div>
-            <div class="species-card">
-                <div class="card-icon">🐞</div>
-                <h3>Жуки</h3>
-                <p>Разнообразие жесткокрылых</p>
+        <div class="hero-background">
+            <div class="floating-insect">🦋</div>
+            <div class="floating-insect">🐝</div>
+            <div class="floating-insect">🐞</div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="title-main">Насекомые</span>
+                    <span class="title-sub">Ярославской области</span>
+                </h1>
+                <p class="hero-description">
+                    Откройте удивительный мир энтомологии нашего региона. 
+                    Изучайте, сохраняйте и восхищайтесь разнообразием насекомых.
+                </p>
+                <div class="hero-actions">
+                    <button class="btn-primary" onclick="scrollToSection('species')">Исследовать виды</button>
+                    <button class="btn-secondary" onclick="showAbout()">Узнать больше</button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">видов насекомых</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">редких видов</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">10</div>
+                        <div class="stat-label">охраняемых видов</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="about">
-        <h2>О проекте</h2>
-        <p>Этот сайт посвящен изучению насекомых Ярославской области.</p>
-    </section>
+    <!-- Секция видов -->
+    <section id="species" class="species-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Разнообразие видов</h2>
+                <p>Изучите основные группы насекомых, обитающих в Ярославской области</p>
+            </div>
+            <div class="species-grid">
+                <div class="species-card">
+                    <div class="card-icon">🦋</div>
+                    <h3>Чешуекрылые</h3>
+                    <p>Бабочки - одни из самых красивых и разнообразных насекомых региона</p>
+                    <ul class="species-list">
+                        <li>• Махаон обыкновенный</li>
+                        <li>• Адмирал</li>
+                        <li>• Крапивница</li>
+                        <li>• Ленточник тополевый</li>
+                    </ul>
+                    <button class="card-btn" onclick="showInsectInfo('butterfly')">Подробнее</button>
+                </div>
 
-    <section id="gallery">
-        <h2>Галерея</h2>
-        <div class="species-grid">
-            <div class="species-card">🦋 Бабочка Махаон</div>
-            <div class="species-card">🐝 Пчела медоносная</div>
-            <div class="species-card">🐞 Божья коровка</div>
+                <div class="species-card">
+                    <div class="card-icon">🐝</div>
+                    <h3>Перепончатокрылые</h3>
+                    <p>Пчелы, шмели и осы - важные опылители растений</p>
+                    <ul class="species-list">
+                        <li>• Пчела медоносная</li>
+                        <li>• Шмель полевой</li>
+                        <li>• Оса обыкновенная</li>
+                        <li>• Муравей рыжий</li>
+                    </ul>
+                    <button class="card-btn" onclick="showInsectInfo('bee')">Подробнее</button>
+                </div>
+
+                <div class="species-card">
+                    <div class="card-icon">🐞</div>
+                    <h3>Жесткокрылые</h3>
+                    <p>Жуки - самая многочисленная группа насекомых</p>
+                    <ul class="species-list">
+                        <li>• Божья коровка</li>
+                        <li>• Жук-олень</li>
+                        <li>• Жук-плавунец</li>
+                        <li>• Жук-носорог</li>
+                    </ul>
+                    <button class="card-btn" onclick="showInsectInfo('beetle')">Подробнее</button>
+                </div>
+
+                <div class="species-card">
+                    <div class="card-icon">🦗</div>
+                    <h3>Прямокрылые</h3>
+                    <p>Кузнечики, сверчки и саранчовые</p>
+                    <ul class="species-list">
+                        <li>• Кузнечик зеленый</li>
+                        <li>• Сверчок полевой</li>
+                        <li>• Кобылка степная</li>
+                        <li>• Трещотка ширококрылая</li>
+                    </ul>
+                    <button class="card-btn" onclick="showInsectInfo('grasshopper')">Подробнее</button>
+                </div>
+            </div>
         </div>
     </section>
 
-    <footer>
-        <p>© 2024 Насекомые Ярославской области</p>
+    <!-- О проекте -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content">
+                    <h2>О нашем проекте</h2>
+                    <p>
+                        Наш проект посвящен изучению и сохранению энтомофауны Ярославской области. 
+                        Мы собираем и систематизируем информацию о различных видах насекомых, 
+                        их особенностях и роли в экосистеме региона.
+                    </p>
+                    <p>
+                        Наша миссия - повысить осведомленность о важности насекомых 
+                        и необходимости их защиты для поддержания биологического разнообразия.
+                    </p>
+                    <div class="about-features">
+                        <div class="feature">
+                            <span class="feature-icon">🔍</span>
+                            <span>Научные исследования</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">📚</span>
+                            <span>Образовательные программы</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">🛡️</span>
+                            <span>Охранные мероприятия</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="visual-card">
+                        <div class="visual-icon">🌿</div>
+                        <h4>Экосистемы</h4>
+                        <p>Изучаем взаимосвязи в природе</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Галерея -->
+    <section id="gallery" class="gallery-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Фотогалерея</h2>
+                <p>Уникальные кадры из мира насекомых Ярославской области</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-image">🦋</div>
+                    <div class="gallery-info">
+                        <h4>Махаон обыкновенный</h4>
+                        <p>Редкая дневная бабочка</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image">🐝</div>
+                    <div class="gallery-info">
+                        <h4>Пчела медоносная</h4>
+                        <p>Главный опылитель</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image">🐞</div>
+                    <div class="gallery-info">
+                        <h4>Божья коровка</h4>
+                        <p>Защитник растений</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image">🦗</div>
+                    <div class="gallery-info">
+                        <h4>Кузнечик зеленый</h4>
+                        <p>Обитатель лугов</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <span class="logo-icon">🦋</span>
+                        Энтомология ЯО
+                    </div>
+                    <p>Изучаем и сохраняем мир насекомых Ярославской области</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="#home" onclick="scrollToSection('home')">Главная</a></li>
+                        <li><a href="#species" onclick="scrollToSection('species')">Виды</a></li>
+                        <li><a href="#about" onclick="scrollToSection('about')">О проекте</a></li>
+                        <li><a href="#gallery" onclick="scrollToSection('gallery')">Галерея</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <ul>
+                        <li>📧 info@entomology.ru</li>
+                        <li>📞 +7 (4852) 123-456</li>
+                        <li>📍 Ярославль, Россия</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Энтомология Ярославской области. Все права защищены.</p>
+            </div>
+        </div>
     </footer>
 
     <script>
-        function showMessage() {
-            alert('Добро пожаловать в мир насекомых Ярославской области!');
+        // Функции для анимаций и взаимодействия
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
         }
 
-        // Плавная прокрутка
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
+        function showAbout() {
+            scrollToSection('about');
+        }
 
-        console.log('Сайт загружен успешно!');
-    </script>
-</body>
-</html>
+        function showInsectInfo(type) {
+            const messages = {
+                butterfly: '🦋 Махаон обыкновенный - редкая бабочка, занесенная в Красную книгу. Размах крыльев до 9 см!',
+                bee: '🐝 Пчела медоносная - важнейший опылитель. Одна пчелиная семья может насчитывать до 60
