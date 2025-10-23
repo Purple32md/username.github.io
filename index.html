@@ -7,25 +7,14 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Навигация -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-logo">
-                🐞 Насекомые ЯО
-            </div>
+            <div class="nav-logo">🐞 Насекомые ЯО</div>
             <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#home" class="nav-link">Главная</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#species" class="nav-link">Виды</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#about" class="nav-link">О проекте</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#gallery" class="nav-link">Галерея</a>
-                </li>
+                <li><a href="#home">Главная</a></li>
+                <li><a href="#species">Виды</a></li>
+                <li><a href="#about">О проекте</a></li>
+                <li><a href="#gallery">Галерея</a></li>
             </ul>
             <div class="hamburger">
                 <span class="bar"></span>
@@ -35,9 +24,53 @@
         </div>
     </nav>
 
-    <!-- Остальной код остается таким же, как в предыдущем сообщении -->
-    <!-- ... -->
-    
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Насекомые <span>Ярославской области</span></h1>
+            <p>Изучаем удивительный мир насекомых нашего региона</p>
+            <button class="cta-button">Узнать больше</button>
+        </div>
+    </section>
+
+    <section id="species" class="species">
+        <h2>Виды насекомых</h2>
+        <div class="species-grid">
+            <div class="species-card">
+                <div class="species-icon">🦋</div>
+                <h3>Бабочки</h3>
+                <p>Более 100 видов дневных и ночных бабочек</p>
+            </div>
+            <div class="species-card">
+                <div class="species-icon">🐝</div>
+                <h3>Пчелы и шмели</h3>
+                <p>Важные опылители растений</p>
+            </div>
+            <div class="species-card">
+                <div class="species-icon">🐞</div>
+                <h3>Жуки</h3>
+                <p>Разнообразие жесткокрылых</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <h2>О проекте</h2>
+        <p>Этот сайт посвящен изучению насекомых Ярославской области.</p>
+    </section>
+
+    <section id="gallery" class="gallery">
+        <h2>Галерея</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">🦋 Бабочка Махаон</div>
+            <div class="gallery-item">🐝 Пчела медоносная</div>
+            <div class="gallery-item">🐞 Божья коровка</div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2024 Насекомые Ярославской области</p>
+    </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
