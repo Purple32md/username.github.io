@@ -1,4 +1,3 @@
-/* Базовые стили */
 * {
     margin: 0;
     padding: 0;
@@ -6,43 +5,34 @@
 }
 
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
     line-height: 1.6;
     color: #333;
-    overflow-x: hidden;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
 }
 
 /* Навигация */
 .navbar {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
+    background: #2e7d32;
+    color: white;
+    padding: 1rem 0;
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 .nav-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 70px;
+    padding: 0 2rem;
 }
 
 .nav-logo {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #2e7d32;
 }
 
 .nav-menu {
@@ -51,31 +41,14 @@ body {
     gap: 2rem;
 }
 
-.nav-link {
+.nav-menu a {
+    color: white;
     text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    transition: color 0.3s;
-    position: relative;
+    transition: opacity 0.3s;
 }
 
-.nav-link:hover {
-    color: #2e7d32;
-}
-
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: #2e7d32;
-    transition: width 0.3s;
-}
-
-.nav-link:hover::after {
-    width: 100%;
+.nav-menu a:hover {
+    opacity: 0.8;
 }
 
 .hamburger {
@@ -87,39 +60,35 @@ body {
 .bar {
     width: 25px;
     height: 3px;
-    background: #333;
+    background: white;
     margin: 3px 0;
     transition: 0.3s;
 }
 
 /* Главная секция */
 .hero {
-    background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+    background: linear-gradient(135deg, #e8f5e8, #c8e6c9);
     min-height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 5%;
+    justify-content: center;
+    text-align: center;
+    padding: 0 2rem;
     margin-top: 70px;
 }
 
-.hero-content {
-    flex: 1;
-    max-width: 600px;
-}
-
-.hero-title {
-    font-size: 3.5rem;
+.hero h1 {
+    font-size: 3rem;
     margin-bottom: 1rem;
     color: #1b5e20;
 }
 
-.highlight {
+.hero h1 span {
     color: #2e7d32;
 }
 
-.hero-subtitle {
-    font-size: 1.3rem;
+.hero p {
+    font-size: 1.2rem;
     margin-bottom: 2rem;
     color: #555;
 }
@@ -130,73 +99,47 @@ body {
     border: none;
     padding: 15px 30px;
     font-size: 1.1rem;
-    border-radius: 50px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: background 0.3s;
 }
 
 .cta-button:hover {
     background: #1b5e20;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(46, 125, 50, 0.3);
 }
 
-.hero-insects {
-    flex: 1;
-    position: relative;
-    height: 400px;
+/* Секции */
+section {
+    padding: 100px 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.insect {
-    font-size: 4rem;
-    position: absolute;
-}
-
-.butterfly {
-    top: 50px;
-    right: 100px;
-}
-
-.bee {
-    top: 150px;
-    right: 200px;
-}
-
-.ladybug {
-    top: 250px;
-    right: 150px;
-}
-
-/* Секция видов */
-.species-section {
-    padding: 100px 0;
-    background: #f8f9fa;
-}
-
-.section-title {
+h2 {
     text-align: center;
-    font-size: 2.5rem;
     margin-bottom: 3rem;
-    color: #1b5e20;
+    font-size: 2.5rem;
+    color: #2e7d32;
 }
 
+/* Виды насекомых */
 .species-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
 }
 
 .species-card {
     background: white;
     padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     text-align: center;
     transition: transform 0.3s;
 }
 
 .species-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-5px);
 }
 
 .species-icon {
@@ -209,66 +152,7 @@ body {
     margin-bottom: 1rem;
 }
 
-.species-list {
-    list-style: none;
-    text-align: left;
-    margin-top: 1rem;
-}
-
-.species-list li {
-    padding: 5px 0;
-    border-bottom: 1px solid #eee;
-}
-
-.species-list li:last-child {
-    border-bottom: none;
-}
-
-/* О проекте */
-.about-section {
-    padding: 100px 0;
-    background: white;
-}
-
-.about-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 3rem;
-    align-items: center;
-}
-
-.about-text p {
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-    line-height: 1.8;
-}
-
-.about-stats {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-.stat {
-    text-align: center;
-}
-
-.stat-number {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #2e7d32;
-}
-
-.stat-label {
-    color: #666;
-}
-
 /* Галерея */
-.gallery-section {
-    padding: 100px 0;
-    background: #f8f9fa;
-}
-
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -278,180 +162,35 @@ body {
 .gallery-item {
     background: white;
     padding: 2rem;
-    border-radius: 15px;
+    border-radius: 10px;
     text-align: center;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s;
-}
-
-.gallery-item:hover {
-    transform: scale(1.05);
-}
-
-.gallery-image {
-    font-size: 4rem;
-    margin-bottom: 1rem;
+    font-size: 1.5rem;
 }
 
 /* Футер */
-.footer {
+footer {
     background: #1b5e20;
     color: white;
     text-align: center;
-    padding: 2rem 0;
+    padding: 2rem;
 }
 
-/* Анимации */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes slideUp {
-    from { 
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to { 
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-}
-
-.animate-fade-in {
-    animation: fadeIn 1s ease-out;
-}
-
-.animate-slide-up {
-    animation: slideUp 1s ease-out 0.5s both;
-}
-
-.animate-float {
-    animation: float 3s ease-in-out infinite;
-}
-
-.animate-float-delayed {
-    animation: float 3s ease-in-out 1.5s infinite;
-}
-
-.animate-pulse {
-    animation: pulse 2s ease-in-out infinite;
-}
-
-.animate-card {
-    opacity: 0;
-    animation: slideUp 0.8s ease-out forwards;
-}
-
-.animate-gallery {
-    opacity: 0;
-    animation: slideUp 0.8s ease-out forwards;
-}
-
-/* Задержки для анимаций карточек */
-.species-card:nth-child(1) { animation-delay: 0.1s; }
-.species-card:nth-child(2) { animation-delay: 0.2s; }
-.species-card:nth-child(3) { animation-delay: 0.3s; }
-.species-card:nth-child(4) { animation-delay: 0.4s; }
-
-.gallery-item:nth-child(1) { animation-delay: 0.1s; }
-.gallery-item:nth-child(2) { animation-delay: 0.2s; }
-.gallery-item:nth-child(3) { animation-delay: 0.3s; }
-.gallery-item:nth-child(4) { animation-delay: 0.4s; }
-
-/* Адаптивность для мобильных */
+/* Адаптивность */
 @media (max-width: 768px) {
     .hamburger {
         display: flex;
     }
     
     .nav-menu {
-        position: fixed;
-        left: -100%;
-        top: 70px;
-        flex-direction: column;
-        background: white;
-        width: 100%;
-        text-align: center;
-        transition: 0.3s;
-        box-shadow: 0 10px 27px rgba(0,0,0,0.05);
-        padding: 2rem 0;
+        display: none;
     }
     
-    .nav-menu.active {
-        left: 0;
-    }
-    
-    .hero {
-        flex-direction: column;
-        text-align: center;
-        padding: 2rem;
-    }
-    
-    .hero-title {
-        font-size: 2.5rem;
-    }
-    
-    .hero-insects {
-        margin-top: 2rem;
-        height: 200px;
-    }
-    
-    .insect {
-        font-size: 2.5rem;
-    }
-    
-    .butterfly {
-        top: 20px;
-        right: 50px;
-    }
-    
-    .bee {
-        top: 80px;
-        right: 100px;
-    }
-    
-    .ladybug {
-        top: 140px;
-        right: 70px;
-    }
-    
-    .about-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-    
-    .about-stats {
-        flex-direction: row;
-        justify-content: space-around;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero-title {
+    .hero h1 {
         font-size: 2rem;
     }
     
-    .species-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .about-stats {
-        flex-direction: column;
-        gap: 1rem;
+    section {
+        padding: 60px 1rem;
     }
 }
