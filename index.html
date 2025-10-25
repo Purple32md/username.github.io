@@ -4,225 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Насекомые Ярославской области | Энтомология</title>
+    <link rel="stylesheet" href="styles/main.css">
     <style>
-        /* Базовые стили и сброс */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        :root {
-            --primary: #2e7d32;
-            --primary-dark: #1b5e20;
-            --primary-light: #4caf50;
-            --secondary: #ff9800;
-            --accent: #ff5722;
-            --text: #333333;
-            --text-light: #666666;
-            --background: #ffffff;
-            --surface: #f8f9fa;
-            --border: #e0e0e0;
-            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.15);
-            --radius: 12px;
-            --safe-area: env(safe-area-inset-bottom, 0px);
-        }
-
-        /* Темная тема */
-        .dark-theme {
-            --text: #ffffff;
-            --text-light: #cccccc;
-            --background: #1a1a1a;
-            --surface: #2d2d2d;
-            --border: #404040;
-            --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        .dark-theme .navbar {
-            background: rgba(45, 45, 45, 0.98);
-        }
-
-        .dark-theme .species-card,
-        .dark-theme .visual-card,
-        .dark-theme .gallery-item,
-        .dark-theme .advice-card {
-            background: var(--surface);
-            color: var(--text);
-        }
-
-        .dark-theme .hero {
-            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
-        }
-
-        .dark-theme .species-section,
-        .dark-theme .gallery-section,
-        .dark-theme .advice-section {
-            background: #2d2d2d;
-        }
-
-        .dark-theme .about-section {
-            background: #1a1a1a;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            -webkit-text-size-adjust: 100%;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.5;
-            color: var(--text);
-            background: var(--background);
-            overflow-x: hidden;
-            transition: all 0.3s ease;
-            padding-bottom: var(--safe-area);
-        }
-
-        /* Навигация - оптимизирована для мобильных */
-        .navbar {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            height: 60px;
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-container {
-            width: 100%;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 1rem;
-        }
-
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-            white-space: nowrap;
-        }
-
-        .logo-icon {
-            font-size: 1.4rem;
-            animation: bounce 2s infinite;
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 1rem;
-        }
-
-        .nav-link {
-            text-decoration: none;
-            color: var(--text);
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 0.5rem 0.8rem;
-            font-size: 0.9rem;
-            border-radius: 20px;
-            white-space: nowrap;
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-            background: var(--primary);
-            color: white;
-        }
-
-        .nav-actions {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
-        .theme-btn, .menu-btn {
-            background: none;
-            border: none;
-            font-size: 1.2rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            touch-action: manipulation;
-        }
-
-        .theme-btn:hover, .menu-btn:hover {
-            background: var(--surface);
-        }
-
-        .menu-btn {
-            display: none;
-        }
-
-        /* Мобильное меню */
-        .mobile-menu {
-            position: fixed;
-            top: 60px;
-            left: 0;
-            width: 100%;
-            background: var(--background);
-            box-shadow: var(--shadow-lg);
-            transform: translateY(-100%);
-            opacity: 0;
-            transition: all 0.3s ease;
-            z-index: 999;
-            padding: 1rem;
-            border-top: 1px solid var(--border);
-        }
-
-        .mobile-menu.active {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .mobile-nav {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .mobile-nav-link {
-            display: block;
-            padding: 1rem;
-            text-decoration: none;
-            color: var(--text);
-            font-weight: 500;
-            border-radius: var(--radius);
-            transition: all 0.3s ease;
-            text-align: center;
-            font-size: 1.1rem;
-        }
-
-        .mobile-nav-link.active,
-        .mobile-nav-link:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        /* Герой секция - оптимизирована для мобильных */
+        /* Специфичные стили для главной страницы */
         .hero {
             min-height: 100vh;
             min-height: 100dvh;
@@ -231,7 +15,6 @@
             position: relative;
             background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
             overflow: hidden;
-            margin-top: 60px;
             padding: 1rem;
         }
 
@@ -269,13 +52,6 @@
             animation-delay: 4s;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-            width: 100%;
-        }
-
         .hero-content {
             text-align: center;
             max-width: 800px;
@@ -296,7 +72,6 @@
             color: var(--primary-dark);
             margin-bottom: 0.5rem;
             line-height: 1.1;
-            animation: slideInLeft 0.8s ease-out;
         }
 
         .title-sub {
@@ -304,7 +79,6 @@
             font-size: clamp(1.2rem, 4vw, 1.8rem);
             font-weight: 500;
             color: var(--text);
-            animation: slideInRight 0.8s ease-out 0.2s both;
             line-height: 1.2;
         }
 
@@ -313,7 +87,6 @@
             color: var(--text);
             margin-bottom: 2rem;
             line-height: 1.6;
-            animation: fadeIn 0.8s ease-out 0.4s both;
         }
 
         .hero-actions {
@@ -322,7 +95,6 @@
             gap: 1rem;
             justify-content: center;
             margin-bottom: 2.5rem;
-            animation: fadeIn 0.8s ease-out 0.6s both;
             max-width: 300px;
             margin-left: auto;
             margin-right: auto;
@@ -349,28 +121,16 @@
             box-shadow: var(--shadow);
         }
 
-        .btn-primary:active {
-            background: var(--primary-dark);
-            transform: scale(0.98);
-        }
-
         .btn-secondary {
             background: transparent;
             color: var(--primary);
             border: 2px solid var(--primary);
         }
 
-        .btn-secondary:active {
-            background: var(--primary);
-            color: white;
-            transform: scale(0.98);
-        }
-
         .hero-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1rem;
-            animation: fadeIn 0.8s ease-out 0.8s both;
             max-width: 400px;
             margin: 0 auto;
         }
@@ -396,457 +156,6 @@
             line-height: 1.2;
         }
 
-        /* Секции */
-        section {
-            padding: 3rem 1rem;
-            scroll-margin-top: 60px;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-
-        .section-header h2 {
-            font-size: clamp(1.8rem, 6vw, 2.5rem);
-            color: var(--primary-dark);
-            margin-bottom: 1rem;
-            animation: fadeInUp 0.6s ease-out;
-            line-height: 1.2;
-        }
-
-        .section-header p {
-            font-size: clamp(1rem, 3vw, 1.1rem);
-            color: var(--text);
-            max-width: 600px;
-            margin: 0 auto;
-            animation: fadeInUp 0.6s ease-out 0.2s both;
-            line-height: 1.5;
-        }
-
-        /* Сетка видов - адаптивная */
-        .species-section {
-            background: var(--surface);
-        }
-
-        .species-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        .species-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            text-align: center;
-            border: 1px solid var(--border);
-            animation: fadeInUp 0.6s ease-out;
-            animation-fill-mode: both;
-            color: var(--text);
-        }
-
-        .species-card:active {
-            transform: scale(0.98);
-        }
-
-        .species-card:nth-child(1) { animation-delay: 0.1s; }
-        .species-card:nth-child(2) { animation-delay: 0.2s; }
-        .species-card:nth-child(3) { animation-delay: 0.3s; }
-        .species-card:nth-child(4) { animation-delay: 0.4s; }
-
-        .card-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            animation: bounce 2s infinite;
-        }
-
-        .species-card h3 {
-            font-size: 1.3rem;
-            color: var(--primary-dark);
-            margin-bottom: 0.8rem;
-            line-height: 1.2;
-        }
-
-        .species-card p {
-            color: var(--text);
-            margin-bottom: 1.2rem;
-            line-height: 1.5;
-            font-size: 0.95rem;
-        }
-
-        .species-list {
-            list-style: none;
-            text-align: left;
-            margin-bottom: 1.5rem;
-            font-size: 0.9rem;
-        }
-
-        .species-list li {
-            padding: 0.4rem 0;
-            color: var(--text);
-            border-bottom: 1px solid var(--border);
-            position: relative;
-            padding-left: 1.5rem;
-        }
-
-        .species-list li:before {
-            content: '🦋';
-            position: absolute;
-            left: 0;
-            font-size: 0.8rem;
-        }
-
-        .species-list li:last-child {
-            border-bottom: none;
-        }
-
-        .card-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            width: 100%;
-            font-size: 1rem;
-            touch-action: manipulation;
-        }
-
-        .card-btn:active {
-            background: var(--primary-dark);
-            transform: scale(0.95);
-        }
-
-        /* Советы */
-        .advice-section {
-            background: var(--surface);
-        }
-
-        .advice-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        .advice-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            border-left: 4px solid var(--primary);
-            color: var(--text);
-            animation: fadeInUp 0.6s ease-out;
-            animation-fill-mode: both;
-        }
-
-        .advice-card:active {
-            transform: scale(0.98);
-        }
-
-        .advice-card:nth-child(1) { animation-delay: 0.1s; }
-        .advice-card:nth-child(2) { animation-delay: 0.2s; }
-        .advice-card:nth-child(3) { animation-delay: 0.3s; }
-
-        .advice-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .advice-card h3 {
-            color: var(--primary-dark);
-            margin-bottom: 0.8rem;
-            font-size: 1.2rem;
-            line-height: 1.2;
-        }
-
-        .advice-card p {
-            color: var(--text);
-            line-height: 1.5;
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
-        }
-
-        .advice-tips {
-            list-style: none;
-            margin-top: 1rem;
-            font-size: 0.9rem;
-        }
-
-        .advice-tips li {
-            padding: 0.4rem 0;
-            color: var(--text);
-            border-bottom: 1px solid var(--border);
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .advice-tips li:before {
-            content: '✅';
-            position: absolute;
-            left: 0;
-            font-size: 0.8rem;
-        }
-
-        .advice-tips li:last-child {
-            border-bottom: none;
-        }
-
-        /* О проекте */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .about-content h2 {
-            font-size: clamp(1.8rem, 6vw, 2.2rem);
-            color: var(--primary-dark);
-            margin-bottom: 1.2rem;
-            animation: fadeInLeft 0.6s ease-out;
-            line-height: 1.2;
-        }
-
-        .about-content p {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: var(--text);
-            margin-bottom: 1.2rem;
-            animation: fadeInLeft 0.6s ease-out 0.2s both;
-        }
-
-        .about-features {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            margin-top: 1.5rem;
-            animation: fadeInLeft 0.6s ease-out 0.4s both;
-        }
-
-        .feature {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            font-weight: 500;
-            padding: 0.5rem 0;
-            color: var(--text);
-            font-size: 0.95rem;
-        }
-
-        .feature-icon {
-            font-size: 1.3rem;
-            background: var(--primary-light);
-            color: white;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .about-visual {
-            display: flex;
-            justify-content: center;
-            animation: fadeInRight 0.6s ease-out 0.6s both;
-        }
-
-        .visual-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            text-align: center;
-            border: 2px solid var(--primary-light);
-            color: var(--text);
-            width: 100%;
-            max-width: 250px;
-        }
-
-        .visual-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            animation: pulse 2s infinite;
-        }
-
-        .visual-card h4 {
-            color: var(--primary-dark);
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-        }
-
-        /* Галерея */
-        .gallery-section {
-            background: var(--surface);
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        .gallery-item {
-            background: white;
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            animation: fadeInUp 0.6s ease-out;
-            animation-fill-mode: both;
-            color: var(--text);
-        }
-
-        .gallery-item:active {
-            transform: scale(0.95);
-        }
-
-        .gallery-item:nth-child(1) { animation-delay: 0.1s; }
-        .gallery-item:nth-child(2) { animation-delay: 0.2s; }
-        .gallery-item:nth-child(3) { animation-delay: 0.3s; }
-        .gallery-item:nth-child(4) { animation-delay: 0.4s; }
-
-        .gallery-image {
-            height: 120px;
-            background: linear-gradient(135deg, #e8f5e8, #c8e6c9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-        }
-
-        .dark-theme .gallery-image {
-            background: linear-gradient(135deg, #2d2d2d, #404040);
-        }
-
-        .gallery-info {
-            padding: 1rem;
-        }
-
-        .gallery-info h4 {
-            color: var(--primary-dark);
-            margin-bottom: 0.3rem;
-            font-size: 0.95rem;
-            line-height: 1.2;
-        }
-
-        .gallery-info p {
-            color: var(--text);
-            font-size: 0.8rem;
-            line-height: 1.3;
-        }
-
-        /* Футер */
-        .footer {
-            background: var(--primary-dark);
-            color: white;
-            padding: 2rem 1rem 1rem;
-            margin-bottom: var(--safe-area);
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .footer-section h4 {
-            margin-bottom: 0.8rem;
-            font-size: 1.1rem;
-            color: white;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section li {
-            margin-bottom: 0.4rem;
-            font-size: 0.9rem;
-        }
-
-        .footer-section a {
-            color: #ccc;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-section a:hover {
-            color: white;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 1rem;
-            text-align: center;
-            color: #ccc;
-            font-size: 0.8rem;
-        }
-
-        /* Анимации - оптимизированные */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
         @keyframes float {
             0%, 100% {
                 transform: translateY(0) rotate(0deg);
@@ -856,71 +165,7 @@
             }
         }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-5px);
-            }
-            60% {
-                transform: translateY(-3px);
-            }
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.03);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        /* Адаптивность для планшетов */
         @media (min-width: 768px) {
-            .nav-container {
-                padding: 0 2rem;
-            }
-
-            .nav-logo {
-                font-size: 1.3rem;
-            }
-
-            .nav-link {
-                font-size: 1rem;
-                padding: 0.5rem 1rem;
-            }
-
-            .hero {
-                padding: 2rem;
-            }
-
             .hero-actions {
                 flex-direction: row;
                 max-width: 500px;
@@ -934,540 +179,78 @@
             .hero-stats {
                 max-width: 500px;
             }
-
-            .species-grid, .advice-grid {
-                grid-template-columns: repeat(2, 1fr);
-                max-width: 800px;
-                gap: 2rem;
-            }
-
-            .gallery-grid {
-                grid-template-columns: repeat(4, 1fr);
-                max-width: 800px;
-            }
-
-            .about-grid {
-                grid-template-columns: 2fr 1fr;
-                gap: 3rem;
-            }
-
-            .footer-content {
-                grid-template-columns: 2fr 1fr 1fr;
-                text-align: left;
-            }
-
-            section {
-                padding: 4rem 2rem;
-            }
-        }
-
-        /* Адаптивность для десктопов */
-        @media (min-width: 1024px) {
-            .species-grid, .advice-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-
-            .advice-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .nav-menu {
-                gap: 1.5rem;
-            }
-        }
-
-        /* Улучшенная доступность */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
-        /* Улучшения для очень маленьких экранов */
-        @media (max-width: 360px) {
-            .nav-logo {
-                font-size: 1rem;
-            }
-
-            .logo-icon {
-                font-size: 1.2rem;
-            }
-
-            .hero-stats {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 0.5rem;
-            }
-
-            .stat-number {
-                font-size: 1.3rem;
-            }
-
-            .stat-label {
-                font-size: 0.7rem;
-            }
-
-            .gallery-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Портретная ориентация */
-        @media (max-height: 600px) and (orientation: portrait) {
-            .hero {
-                min-height: 600px;
-                padding-top: 2rem;
-                padding-bottom: 2rem;
-            }
-
-            .hero-stats {
-                margin-top: 1rem;
-            }
-        }
-
-        /* Ландшафтная ориентация */
-        @media (orientation: landscape) and (max-height: 500px) {
-            .hero {
-                min-height: 500px;
-                padding-top: 1rem;
-                padding-bottom: 1rem;
-            }
-
-            .hero-title {
-                margin-bottom: 1rem;
-            }
-
-            .hero-actions {
-                margin-bottom: 1.5rem;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Навигация -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#home" class="nav-logo">
-                <span class="logo-icon">🦋</span>
-                Энтомология ЯО
-            </a>
-            <div class="nav-menu">
-                <a href="#home" class="nav-link active">Главная</a>
-                <a href="#species" class="nav-link">Виды</a>
-                <a href="#advice" class="nav-link">Советы</a>
+    <!-- Шапка -->
+    <div id="header"></div>
+    
+    <div class="main-content">
+        <!-- Герой секция -->
+        <section class="hero" id="home">
+            <div class="hero-background">
+                <div class="floating-insect">🦋</div>
+                <div class="floating-insect">🐝</div>
+                <div class="floating-insect">🐞</div>
             </div>
-            <div class="nav-actions">
-                <button class="theme-btn" onclick="toggleTheme()">🌙</button>
-                <button class="menu-btn" onclick="toggleMenu()">☰</button>
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="title-main">Насекомые</span>
+                        <span class="title-sub">Ярославской области</span>
+                    </h1>
+                    <p class="hero-description">
+                        Откройте удивительный мир энтомологии нашего региона. 
+                        Изучайте, сохраняйте и восхищайтесь разнообразием насекомых.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="pages/species.html" class="btn-primary">Исследовать виды</a>
+                        <a href="pages/advice.html" class="btn-secondary">Полезные советы</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-label">видов насекомых</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">редких видов</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">10</div>
+                            <div class="stat-label">охраняемых видов</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </nav>
-
-    <!-- Мобильное меню -->
-    <div class="mobile-menu" id="mobileMenu">
-        <div class="mobile-nav">
-            <a href="#home" class="mobile-nav-link active" onclick="closeMenu()">Главная</a>
-            <a href="#species" class="mobile-nav-link" onclick="closeMenu()">Виды</a>
-            <a href="#advice" class="mobile-nav-link" onclick="closeMenu()">Советы</a>
-            <a href="#about" class="mobile-nav-link" onclick="closeMenu()">О проекте</a>
-            <a href="#gallery" class="mobile-nav-link" onclick="closeMenu()">Галерея</a>
-        </div>
+        </section>
     </div>
 
-    <!-- Герой секция -->
-    <section id="home" class="hero">
-        <div class="hero-background">
-            <div class="floating-insect">🦋</div>
-            <div class="floating-insect">🐝</div>
-            <div class="floating-insect">🐞</div>
-        </div>
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">
-                    <span class="title-main">Насекомые</span>
-                    <span class="title-sub">Ярославской области</span>
-                </h1>
-                <p class="hero-description">
-                    Откройте удивительный мир энтомологии нашего региона. 
-                    Изучайте, сохраняйте и восхищайтесь разнообразием насекомых.
-                </p>
-                <div class="hero-actions">
-                    <a href="#species" class="btn-primary">Исследовать виды</a>
-                    <a href="#advice" class="btn-secondary">Полезные советы</a>
-                </div>
-                <div class="hero-stats">
-                    <div class="stat">
-                        <div class="stat-number">500+</div>
-                        <div class="stat-label">видов насекомых</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">50+</div>
-                        <div class="stat-label">редких видов</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">10</div>
-                        <div class="stat-label">охраняемых видов</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Подвал -->
+    <div id="footer"></div>
 
-    <!-- Секция видов -->
-    <section id="species" class="species-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Разнообразие видов</h2>
-                <p>Изучите основные группы насекомых, обитающих в Ярославской области</p>
-            </div>
-            <div class="species-grid">
-                <div class="species-card">
-                    <div class="card-icon">🦋</div>
-                    <h3>Чешуекрылые</h3>
-                    <p>Бабочки - одни из самых красивых и разнообразных насекомых региона</p>
-                    <ul class="species-list">
-                        <li>Махаон обыкновенный</li>
-                        <li>Адмирал</li>
-                        <li>Крапивница</li>
-                    </ul>
-                    <button class="card-btn" onclick="showAlert('Бабочки')">Подробнее</button>
-                </div>
-
-                <div class="species-card">
-                    <div class="card-icon">🐝</div>
-                    <h3>Перепончатокрылые</h3>
-                    <p>Пчелы, шмели и осы - важные опылители растений</p>
-                    <ul class="species-list">
-                        <li>Пчела медоносная</li>
-                        <li>Шмель полевой</li>
-                        <li>Оса обыкновенная</li>
-                    </ul>
-                    <button class="card-btn" onclick="showAlert('Пчелы и шмели')">Подробнее</button>
-                </div>
-
-                <div class="species-card">
-                    <div class="card-icon">🐞</div>
-                    <h3>Жесткокрылые</h3>
-                    <p>Жуки - самая многочисленная группа насекомых</p>
-                    <ul class="species-list">
-                        <li>Божья коровка</li>
-                        <li>Жук-олень</li>
-                        <li>Жук-плавунец</li>
-                    </ul>
-                    <button class="card-btn" onclick="showAlert('Жуки')">Подробнее</button>
-                </div>
-
-                <div class="species-card">
-                    <div class="card-icon">🦗</div>
-                    <h3>Прямокрылые</h3>
-                    <p>Кузнечики, сверчки и саранчовые</p>
-                    <ul class="species-list">
-                        <li>Кузнечик зеленый</li>
-                        <li>Сверчок полевой</li>
-                        <li>Кобылка степная</li>
-                    </ul>
-                    <button class="card-btn" onclick="showAlert('Прямокрылые')">Подробнее</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Секция советов -->
-    <section id="advice" class="advice-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Полезные советы</h2>
-                <p>Рекомендации по наблюдению и сохранению насекомых</p>
-            </div>
-            <div class="advice-grid">
-                <div class="advice-card">
-                    <div class="advice-icon">🔍</div>
-                    <h3>Наблюдение за насекомыми</h3>
-                    <p>Как правильно наблюдать за насекомыми в естественной среде обитания</p>
-                    <ul class="advice-tips">
-                        <li>Выбирайте утренние часы для наблюдений</li>
-                        <li>Используйте бинокль для бабочек</li>
-                        <li>Не трогайте насекомых руками</li>
-                        <li>Фотографируйте, а не ловите</li>
-                    </ul>
-                </div>
-
-                <div class="advice-card">
-                    <div class="advice-icon">🏡</div>
-                    <h3>Создание сада для насекомых</h3>
-                    <p>Как привлечь полезных насекомых в свой сад</p>
-                    <ul class="advice-tips">
-                        <li>Сажайте местные виды растений</li>
-                        <li>Создайте "дикий" уголок в саду</li>
-                        <li>Установите домик для насекомых</li>
-                        <li>Не используйте пестициды</li>
-                    </ul>
-                </div>
-
-                <div class="advice-card">
-                    <div class="advice-icon">🛡️</div>
-                    <h3>Сохранение редких видов</h3>
-                    <p>Как помочь сохранить биоразнообразие насекомых</p>
-                    <ul class="advice-tips">
-                        <li>Сообщайте о редких находках</li>
-                        <li>Участвуйте в научных проектах</li>
-                        <li>Поддерживайте охраняемые территории</li>
-                        <li>Распространяйте знания о насекомых</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- О проекте -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <div class="about-grid">
-                <div class="about-content">
-                    <h2>О нашем проекте</h2>
-                    <p>
-                        Наш проект посвящен изучению и сохранению энтомофауны Ярославской области. 
-                        Мы собираем и систематизируем информацию о различных видах насекомых.
-                    </p>
-                    <p>
-                        Наша миссия - повысить осведомленность о важности насекомых 
-                        и необходимости их защиты для поддержания биологического разнообразия.
-                    </p>
-                    <div class="about-features">
-                        <div class="feature">
-                            <span class="feature-icon">🔍</span>
-                            <span>Научные исследования</span>
-                        </div>
-                        <div class="feature">
-                            <span class="feature-icon">📚</span>
-                            <span>Образовательные программы</span>
-                        </div>
-                        <div class="feature">
-                            <span class="feature-icon">🛡️</span>
-                            <span>Охранные мероприятия</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-visual">
-                    <div class="visual-card">
-                        <div class="visual-icon">🌿</div>
-                        <h4>Экосистемы</h4>
-                        <p>Изучаем взаимосвязи в природе</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Галерея -->
-    <section id="gallery" class="gallery-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Фотогалерея</h2>
-                <p>Уникальные кадры из мира насекомых Ярославской области</p>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <div class="gallery-image">🦋</div>
-                    <div class="gallery-info">
-                        <h4>Махаон</h4>
-                        <p>Редкая бабочка</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-image">🐝</div>
-                    <div class="gallery-info">
-                        <h4>Пчела</h4>
-                        <p>Главный опылитель</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-image">🐞</div>
-                    <div class="gallery-info">
-                        <h4>Божья коровка</h4>
-                        <p>Защитник растений</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-image">🦗</div>
-                    <div class="gallery-info">
-                        <h4>Кузнечик</h4>
-                        <p>Обитатель лугов</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Футер -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="footer-logo">
-                        <span class="logo-icon">🦋</span>
-                        Энтомология ЯО
-                    </div>
-                    <p>Изучаем и сохраняем мир насекомых Ярославской области</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Навигация</h4>
-                    <ul>
-                        <li><a href="#home">Главная</a></li>
-                        <li><a href="#species">Виды</a></li>
-                        <li><a href="#advice">Советы</a></li>
-                        <li><a href="#about">О проекте</a></li>
-                        <li><a href="#gallery">Галерея</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Контакты</h4>
-                    <ul>
-                        <li>📧 info@entomology.ru</li>
-                        <li>📞 +7 (4852) 123-456</li>
-                        <li>📍 Ярославль, Россия</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Энтомология Ярославской области. Все права защищены.</p>
-            </div>
-        </div>
-    </footer>
-
+    <script src="scripts/common.js"></script>
     <script>
-        // Функция для показа уведомления
-        function showAlert(category) {
-            alert(`Раздел "${category}" находится в разработке. Скоро здесь появится подробная информация!`);
-        }
-
-        // Переключение мобильного меню
-        function toggleMenu() {
-            const mobileMenu = document.getElementById('mobileMenu');
-            mobileMenu.classList.toggle('active');
-            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-        }
-
-        function closeMenu() {
-            const mobileMenu = document.getElementById('mobileMenu');
-            mobileMenu.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        // Переключение темы
-        function toggleTheme() {
-            const body = document.body;
-            const themeBtn = document.querySelector('.theme-btn');
-            
-            if (body.classList.contains('dark-theme')) {
-                body.classList.remove('dark-theme');
-                themeBtn.textContent = '🌙';
-                localStorage.setItem('theme', 'light');
-            } else {
-                body.classList.add('dark-theme');
-                themeBtn.textContent = '☀️';
-                localStorage.setItem('theme', 'dark');
-            }
-        }
-
-        // Загрузка сохраненной темы
-        function loadTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            const themeBtn = document.querySelector('.theme-btn');
-            
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-theme');
-                themeBtn.textContent = '☀️';
-            }
-        }
-
-        // Плавная прокрутка для навигационных ссылок
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                // Закрываем мобильное меню если оно открыто
-                closeMenu();
-                
-                // Обновляем активную ссылку
-                document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
-                    link.classList.remove('active');
-                });
-                this.classList.add('active');
-                
-                // Прокрутка к секции
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Обновление активной ссылки при скролле
-        function updateActiveLink() {
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
-            
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (scrollY >= (sectionTop - 100)) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
-                }
-            });
-        }
-
-        window.addEventListener('scroll', updateActiveLink);
-
-        // Инициализация при загрузке страницы
+        // Загрузка компонентов
         document.addEventListener('DOMContentLoaded', function() {
-            loadTheme();
-            updateActiveLink();
-            
-            // Добавляем класс для анимаций после загрузки
-            setTimeout(() => {
-                document.body.classList.add('loaded');
-            }, 100);
+            // Загружаем шапку
+            fetch('components/header.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('header').innerHTML = html;
+                    if (window.commonApp) {
+                        window.commonApp.setupEventListeners();
+                    }
+                });
 
-            // Скрываем меню при клике вне его
-            document.addEventListener('click', function(e) {
-                const mobileMenu = document.getElementById('mobileMenu');
-                const menuBtn = document.querySelector('.menu-btn');
-                
-                if (mobileMenu.classList.contains('active') && 
-                    !mobileMenu.contains(e.target) && 
-                    !menuBtn.contains(e.target)) {
-                    closeMenu();
-                }
-            });
+            // Загружаем подвал
+            fetch('components/footer.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('footer').innerHTML = html;
+                });
         });
-
-        // Предотвращение zoom при двойном тапе (для iOS)
-        let lastTouchEnd = 0;
-        document.addEventListener('touchend', function (event) {
-            const now = (new Date()).getTime();
-            if (now - lastTouchEnd <= 300) {
-                event.preventDefault();
-            }
-            lastTouchEnd = now;
-        }, false);
-
-        // Улучшение производительности на мобильных
-        if ('ontouchstart' in window) {
-            document.documentElement.classList.add('touch-device');
-        }
     </script>
 </body>
 </html>
